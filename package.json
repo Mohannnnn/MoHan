@@ -1,0 +1,28 @@
+{
+  "name": "nodetest",
+  "version": "1.0.0",
+  "description": "测试",
+  "main": "mine.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "http": "0.0.0",
+    "jquery": "^3.0.0",
+    "jsx-loader": "^0.13.2",
+    "marked": "^0.3.5",
+    "path": "^0.12.7",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "body-parser": "^1.15.2",
+    "css-loader": "^0.23.1"
+  },
+  "scripts": {
+    "build": "webpack",
+    "app": "node app.js",
+    "start": "webpack-dev-server --hot --devtool eval --progress --colors --content-base public"
+  },
+  "author": "",
+  "license": "ISC"
+}
