@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //}
 
 
-/*原来的请求地址*/
+/*原来的请求地址ss*/
 //app.get('/', routes.index);
 app.get('/comments/:id', urlencodedParser,comment.get);
 app.delete('/comments/:id',  urlencodedParser,comment.delete);
