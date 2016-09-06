@@ -69,7 +69,6 @@ exports.loadMoreImg = function (req , res) {
         if (err) throw err;
 
         if(rows) {
-            console.log(rows);
             allImgNum = rows;
         }
     });
@@ -82,7 +81,6 @@ exports.loadMoreImg = function (req , res) {
                 imgData : rows,
                 allImgNum : allImgNum
             }
-            console.log(sendData);
             res.json(sendData);
         }
     });
@@ -109,7 +107,6 @@ exports.loadAllImgNum = function (req , res) {
         if (err) throw err;
 
         if(rows) {
-            console.log(rows);
             res.json(rows);
         }
     });
@@ -189,8 +186,49 @@ exports.add = function(req, res){
 };
 
 
+//博客加载的get请求
+exports.loadAllBlogs = function (req , res) {
+    var database = 'comment';//数据库名
+    var table = 'blogs';//表名
 
+    var connection = mysql.createConnection({
+        "host" : "localhost",
+        "user" : "root",
+        "port" : 3306,
+        "password" : "wuhan"
+    });
 
+    connection.connect();
+
+    connection.query('use '+ database);
+
+    var count = req.query.count;
+    var page = (req.query.page-1)*count;
+
+    var allBlogNum = 0 ;
+
+    connection.query('SELECT count(blogId) num from ' + table , function(err, rows, fields) {
+        if (err) throw err;
+
+        if(rows) {
+            allBlogNum = rows;
+        }
+    });
+
+    connection.query('SELECT * from ' + table + ' ORDER BY blogId DESC  limit '+ page + ',' + count, function(err, rows, fields) {
+        if(err) {
+            console.log( err.message);
+            return;
+        }
+        if(rows) {
+            var sendData = {
+                blogsData : rows,
+                allBlogNum : allBlogNum
+            }
+            res.json(sendData);
+        }
+    });
+};
 
 
 

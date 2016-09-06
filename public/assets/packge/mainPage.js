@@ -31896,7 +31896,9 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(38);
-	var CommentBox = __webpack_require__(168);
+	var MainPage_left = __webpack_require__(175);
+	var MainPage_right = __webpack_require__(176);
+
 	var $ = __webpack_require__(170);
 
 	//主页
@@ -31949,7 +31951,6 @@
 	        return (
 	            React.createElement("div", null, 
 	                React.createElement(MainPage_left, {windowHeight: this.state.windowHeight}), 
-
 	                React.createElement(MainPage_right, {windowHeight: this.state.windowHeight, moveFun: this.moveFun})
 	            )
 	        )
@@ -31957,15 +31958,60 @@
 	});
 
 
+	////主页的内容的第五部分，（关于我）
+	//
+	//var MainPage_aboutMe = React.createClass({
+	//
+	//    getInitialState : function () {
+	//        return {
+	//
+	//        }
+	//    },
+	//    render : function () {
+	//
+	//        return(
+	//            <section>
+	//                <div id="aboutMe" className="eachModule" style={{height : (this.props.windowHeight)}}>
+	//                    <header>
+	//                        <h2>关于我</h2>
+	//                    </header>
+	//                    <footer>
+	//                        <a href="#" className="intro_button">
+	//                            查看更多
+	//                        </a>
+	//                    </footer>
+	//                </div>
+	//            </section>
+	//        )
+	//    }
+	//});
+
+
+
+	module.exports = MainPage;
+
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by 14-7447 on 2016/9/6.
+	 */
 	/*主页的左边导航部分*/
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(38);
+	var $ = __webpack_require__(170);
+
 	var MainPage_left = React.createClass({displayName: "MainPage_left",
 
 	    content : {
-	      intro : '主页',
-	      photo : '摄影',
-	      blog  : '博客',
-	      aboutMe : '关于我',
-	      sayMe : '留言'
+	        intro : '主页',
+	        photo : '摄影',
+	        blog  : '博客',
+	        aboutMe : '关于我',
+	        sayMe : '留言'
 	    },
 
 	    getInitialState : function () {
@@ -31992,8 +32038,6 @@
 	        var childNode = Array.prototype.slice.call(ul.childNodes,0);
 
 	        childNode.forEach(function(item,index) {
-	            //console.log(item.nodeType);
-	            //console.log(item.dataset.name);
 
 	            if(item.nodeType == 1){
 	                item.style.backgroundColor = '#212528';
@@ -32014,13 +32058,11 @@
 	    },
 	    //联系方式鼠标移动事件
 	    connectionWayFun : function (e) {
-	        //e.target.src = '../images/' + e.target.dataset.name + '2.svg';
 	        e.target.style.opacity = 1;
 
 	    },
 	    //鼠标移出事件
 	    connectionWayFunout : function (e) {
-	        //e.target.src = '../images/' + e.target.dataset.name + '1.svg';
 	        e.target.style.opacity = 0.5;
 	    },
 	    render : function () {
@@ -32051,8 +32093,26 @@
 	    }
 	});
 
+	module.exports = MainPage_left;
 
-	/*主页的右边部分*/
+/***/ },
+/* 176 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by 14-7447 on 2016/9/6.
+	 */
+
+	//主页的右边部分
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(38);
+	var $ = __webpack_require__(170);
+
+	var MainPage_intro = __webpack_require__(177);
+	var MainPage_photo = __webpack_require__(178);
+	var MainPage_blogs = __webpack_require__(179);
+	var MainPage_sayMe = __webpack_require__(180);
+
 	var MainPage_right = React.createClass({displayName: "MainPage_right",
 
 	    getInitialState : function () {
@@ -32106,6 +32166,19 @@
 	    }
 	});
 
+	module.exports = MainPage_right;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by 14-7447 on 2016/9/6.
+	 */
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(38);
+	var $ = __webpack_require__(170);
+
 	//主页的内容的第一部分（个人介绍）
 	var MainPage_intro = React.createClass({displayName: "MainPage_intro",
 
@@ -32118,27 +32191,40 @@
 	    render : function () {
 
 	        return(
-	                React.createElement("section", null, 
-	                    React.createElement("div", {id: "intro", className: "eachModule", style: {height : (this.props.windowHeight)*0.8}}, 
-	                        React.createElement("header", null, 
-	                            React.createElement("h1", null), 
-	                            React.createElement("h2", null, "I'm ", React.createElement("strong", null, "wuhan")), 
+	            React.createElement("section", null, 
+	                React.createElement("div", {id: "intro", className: "eachModule", style: {height : (this.props.windowHeight)*0.8}}, 
+	                    React.createElement("header", null, 
+	                        React.createElement("h1", null), 
+	                        React.createElement("h2", null, "I'm ", React.createElement("strong", null, "wuhan")), 
 
-	                            React.createElement("p", null, "再坚持一会，下一秒绝对会有让你意想不到的收获", 
-	                                React.createElement("br", null), 
-	                                React.createElement("span", {className: "author"}, "——I say")
-	                            )
+	                        React.createElement("p", null, "再坚持一会，下一秒绝对会有让你意想不到的收获", 
+	                            React.createElement("br", null), 
+	                            React.createElement("span", {className: "author"}, "——I say")
 	                        )
 	                    )
-
 	                )
+
+	            )
 	        )
 	    }
 	});
 
+	module.exports = MainPage_intro;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by 14-7447 on 2016/9/6.
+	 */
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(38);
+	var $ = __webpack_require__(170);
+
 
 	//主页的内容的第二部分，（摄影）
-	    //每一个图片组件
+	//每一个图片组件
 	var MainPage_photo_every = React.createClass({displayName: "MainPage_photo_every",
 
 	    //getInitialState : function () {
@@ -32169,16 +32255,16 @@
 
 	        var every_photo = this.props.data.map(function (value) {
 
-	                return (
-	                    React.createElement("div", {key: value.imgId, className: "photo_container"}, 
-	                        React.createElement("a", {href: "javascript:;", onClick: that.lookImgFun}, React.createElement("img", {src: "../viewimages/" + value.imgUrl, 
-	                                                                              alt: ""})), 
-	                        React.createElement("div", {className: "every_photo_word"}, 
-	                            React.createElement("h3", null, value.imgName, React.createElement("span", {className: "imgTime"}, value.imgTime)), 
-	                            React.createElement("p", null, value.imgDescription)
-	                        )
+	            return (
+	                React.createElement("div", {key: value.imgId, className: "photo_container"}, 
+	                    React.createElement("a", {href: "javascript:;", onClick: that.lookImgFun}, React.createElement("img", {src: "../viewimages/" + value.imgUrl, 
+	                                                                          alt: ""})), 
+	                    React.createElement("div", {className: "every_photo_word"}, 
+	                        React.createElement("h3", null, value.imgName, React.createElement("span", {className: "imgTime"}, value.imgTime)), 
+	                        React.createElement("p", null, value.imgDescription)
 	                    )
 	                )
+	            )
 
 	        });
 	        return (
@@ -32292,7 +32378,6 @@
 
 
 	        }
-	        //console.log(Object.prototype.toString.call(string));
 
 	        var deal = document.createElement('div');
 	        deal.innerHTML = string;
@@ -32306,8 +32391,6 @@
 	        var paging_each = document.getElementsByClassName('paging_each');
 	        var paging_left = document.getElementsByClassName('paging_left')[0];
 	        var paging_right = document.getElementsByClassName('paging_right')[0];
-
-	        //paging_each[0].firstChild.classList.add('active');
 
 	        for(var i = 0 ; i < paging_each.length; i++) {
 	            paging_each[i].onclick = function (e) {
@@ -32354,7 +32437,6 @@
 	            data : ajaxData,
 	            dataType : 'json',
 	            success : function (data) {
-	                //this.setState({data : data.imgData});
 	                this.props.listenlookImgFun(data.imgData);
 	            }.bind(this),
 	            error: function(xhr, status, err) {
@@ -32364,49 +32446,6 @@
 	    },
 
 	    render : function () {
-
-	        //var  pageFun = function () {
-	        //
-	        //    var allPages = 0,
-	        //        string = '',
-	        //        len = parseInt(this.props.allImgNum/this.props.length);
-	        //
-	        //    console.log(this.props.allImgNum);
-	        //    console.log(len);
-	        //    if(len != 0) {
-	        //        allPages = len + 1;
-	        //    }
-	        //    console.log(allPages);
-	        //    for(var i = 0  ; i < allPages ; i++) {
-	        //        string +=  '<li className="paging_each">'+(i+1)+'</li>'
-	        //
-	        //    }
-	        //    console.log(Object.prototype.toString.call(string));
-	        //
-	        //    var deal = document.createElement('div');
-	        //    deal.innerHTML = string;
-	        //
-	        //    var paging_left =  document.getElementsByClassName('paging_left')[0];
-	        //    console.log(paging_left);
-	        //    console.log( paging_left.parentNode);
-	        //    console.log(paging_left.nextSibling);
-	        //
-	        //    console.log(deal.childNodes);
-	        //    console.log(deal.childNodes.length);
-	        //
-	        //    for(var i = 0 ;i < deal.childNodes.length ; i++) {
-	        //
-	        //        console.log(deal.childNodes[i].nodeType);
-	        //
-	        //        if(deal.childNodes[i].nodeType == 1 ) {
-	        //            console.log(deal.childNodes[i].nodeType);
-	        //            paging_left.parentNode.insertBefore(deal.childNodes[i],paging_left.nextSibling);
-	        //        }
-	        //    }
-	        //
-	        //    //return deal.childNodes;
-	        //}.bind(this);
-
 
 	        return(
 	            React.createElement("div", {className: "paging_container"}, 
@@ -32422,16 +32461,74 @@
 	});
 
 
+	module.exports = MainPage_photo;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by 14-7447 on 2016/9/6.
+	 */
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(38);
+	var $ = __webpack_require__(170);
 
 	//主页的内容的第三部分，（博客）
 
+	//遍历输出每个博客
+	var MainPage_blogs_every = React.createClass({displayName: "MainPage_blogs_every",
 
+	    render : function () {
+
+	        var every_blog = this.props.blogMessage.map(function (value) {
+
+	            return (
+	                React.createElement("div", {className: "blog_each", key: value.blogId}, 
+	                    React.createElement("a", {href: value.blogUrl}, React.createElement("h2", null, value.blogName)), 
+	                    React.createElement("span", {className: "blog_time"}, value.blogCreateTime)
+	                )
+	            )
+
+	        });
+	        return (
+	            React.createElement("div", null, 
+	                every_blog 
+	            )
+
+	        );
+
+	    }
+	});
+
+	//总的博客
 	var MainPage_blogs = React.createClass({displayName: "MainPage_blogs",
 
 	    getInitialState : function () {
 	        return {
-
+	            count: 5,
+	            url: '/loadAllBlogs',
+	            blogMessage: [],
+	            allBlogsCount : 0
 	        }
+	    },
+	    //监听子组件(通过回调函数传回来的参数)
+	    listenlookPageFun : function (newState) {
+	        this.setState({blogMessage : newState});
+	    },
+	    componentDidMount : function () {
+	        $.ajax({
+	            type: 'get',
+	            url : this.state.url,
+	            data : {count:this.state.count , page:1},
+	            dataType : 'json',
+	            success : function (data) {
+	                this.setState({blogMessage:data.blogsData, allBlogsCount : data.allBlogNum});
+	            }.bind(this),
+	            error: function(xhr, status, err) {
+	                console.error(this.state.url, status, err.toString());
+	            }.bind(this)
+	        });
 	    },
 
 	    render : function () {
@@ -32442,25 +32539,9 @@
 	                    React.createElement("header", null, 
 	                        React.createElement("h2", null, "我的博客")
 	                    ), 
-	                    React.createElement("div", {className: "blog_each"}, 
-	                        React.createElement("a", {href: ""}, React.createElement("h2", null, "js语法总结")), 
-	                        React.createElement("span", {className: "blog_time"}, "2017-12-12")
-	                    ), 
-	                    React.createElement("div", {className: "blog_each"}, 
-	                        React.createElement("a", {href: ""}, React.createElement("h2", null, "叙说js闭包原理")), 
-	                        React.createElement("span", {className: "blog_time"}, "2017-12-12")
-	                    ), 
-	                    React.createElement("div", {className: "blog_each"}, 
-	                        React.createElement("a", {href: ""}, React.createElement("h2", null, "js事件机制")), 
-	                        React.createElement("span", {className: "blog_time"}, "2017-12-12")
-	                    ), 
-	                    React.createElement("div", {className: "blog_each"}, 
-	                        React.createElement("a", {href: ""}, React.createElement("h2", null, "有关ajax")), 
-	                        React.createElement("span", {className: "blog_time"}, "2017-12-12")
-	                    ), 
-	                    React.createElement("div", {className: "blog_each"}, 
-	                        React.createElement("a", {href: ""}, React.createElement("h2", null, "requestAnimationFrame动画")), 
-	                        React.createElement("span", {className: "blog_time"}, "2017-12-12")
+	                    React.createElement("div", null, 
+	                        React.createElement(MainPage_blogs_every, {blogMessage: this.state.blogMessage}), 
+	                        React.createElement(MainPage_blogs_paging, {allBlogsCount: this.state.allBlogsCount, listenlookPageFun: this.listenlookPageFun})
 	                    )
 
 	                )
@@ -32469,6 +32550,96 @@
 	        )
 	    }
 	});
+
+	//博客分页
+	var MainPage_blogs_paging = React.createClass({displayName: "MainPage_blogs_paging",
+
+	    getInitialState : function () {
+	        return {
+	            thisPageNum : 1,
+	            count: 5,
+	            url: '/loadAllBlogs',
+	            allPageCount : 0
+	        }
+	    },
+
+	    componentDidUpdate : function () {
+	        this.clickPageFun();
+	    },
+
+	    ajaxFun : function (ajaxData) {
+	        $.ajax({
+	            type: 'get',
+	            url : this.state.url,
+	            data : ajaxData,
+	            dataType : 'json',
+	            success : function (data) {
+	                this.props.listenlookPageFun(data.blogsData);
+	            }.bind(this),
+	            error: function(xhr, status, err) {
+	                console.error(this.props.url, status, err.toString());
+	            }.bind(this)
+	        });
+	    },
+
+	    clickPageFun : function () {
+	        var page_left = document.querySelectorAll('.paging_left')[1];
+	        var page_right = document.querySelectorAll('.paging_right')[1];
+
+	        var len = parseInt(this.props.allBlogsCount[0].num/this.state.count);
+
+	        if(len != 0) {
+	            this.state.allPageCount = len + 1;
+	        }
+
+	        page_left.onclick = function (e) {
+
+	          if(this.state.thisPageNum > 1) {
+	              this.setState({thisPageNum : this.state.thisPageNum-1});
+	              console.log(this.state.thisPageNum);
+	              this.ajaxFun({count:this.state.count , page:this.state.thisPageNum});
+	          }
+	        }.bind(this);
+
+	        page_right.onclick = function (e) {
+
+	            if(this.state.thisPageNum < this.state.allPageCount) {
+	                this.setState({thisPageNum : this.state.thisPageNum+1});
+	                console.log(this.state.thisPageNum);
+	                this.ajaxFun({count:this.state.count , page:this.state.thisPageNum});
+	            }
+	        }.bind(this);
+	    },
+
+
+	    render : function () {
+
+	        return(
+	            React.createElement("div", {className: "paging_container"}, 
+	                React.createElement("ul", {className: "paging_container_ul"}, 
+	                    React.createElement("li", {className: "paging_left", onClick: this.clickPageFun}, React.createElement("a", {href: "javascript:;"}, React.createElement("i", {className: "arrow2"}), "上一页")), 
+	                    React.createElement("li", {className: "paging_right", onClick: this.clickPageFun}, React.createElement("a", {href: "javascript:;"}, "下一页", React.createElement("i", {className: "arrow3"})))
+	                )
+	            )
+	        )
+	    }
+
+	});
+
+
+	module.exports = MainPage_blogs;
+
+/***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by 14-7447 on 2016/9/6.
+	 */
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(38);
+	var $ = __webpack_require__(170);
+	var CommentBox = __webpack_require__(168);
 
 	//主页的内容的第四部分，（留言）
 
@@ -32498,62 +32669,7 @@
 	    }
 	});
 
-
-	//主页的内容的第五部分，（关于我）
-
-	var MainPage_aboutMe = React.createClass({displayName: "MainPage_aboutMe",
-
-	    getInitialState : function () {
-	        return {
-
-	        }
-	    },
-	    render : function () {
-
-	        return(
-	            React.createElement("section", null, 
-	                React.createElement("div", {id: "aboutMe", className: "eachModule", style: {height : (this.props.windowHeight)}}, 
-	                    React.createElement("header", null, 
-	                        React.createElement("h2", null, "关于我")
-	                    ), 
-	                    React.createElement("footer", null, 
-	                        React.createElement("a", {href: "#", className: "intro_button"}, 
-	                            "查看更多"
-	                        )
-	                    )
-	                )
-	            )
-	        )
-	    }
-	});
-
-
-	module.exports = MainPage;
-
-	/*
-	*  <footer>
-	 <a href="#" className="intro_button">
-	 查看更多
-	 </a>
-	 </footer>*/
-
-	/*
-	*      <div className="blog_each">
-	 <a href=""><h2>第三份</h2></a>
-	 <span className="blog_time">2017-12-12</span>
-	 </div>
-	 <div className="blog_each">
-	 <a href=""><h2>第四份</h2></a>
-	 <span className="blog_time">2017-12-12</span>
-	 </div>
-	 <div className="blog_each">
-	 <a href=""><h2>第五份</h2></a>
-	 <span className="blog_time">2017-12-12</span>
-	 </div>
-	 <div className="blog_each">
-	 <a href=""><h2>第六份</h2></a>
-	 <span className="blog_time">2017-12-12</span>
-	 </div>*/
+	module.exports = MainPage_sayMe;
 
 /***/ }
 /******/ ]);

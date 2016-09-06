@@ -3,7 +3,7 @@
  */
 var React = require('react');
 var ReactDOM = require('react-dom');
-var MainPage = require('./main');
+var MainPage = require('./MainPage');
 
 ReactDOM.render(
     <MainPage />,

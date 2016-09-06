@@ -38,6 +38,7 @@ app.put('/comments/:id', urlencodedParser, comment.update);
 /*首页加载时候的留言列表请求*/
 app.get('/comments', urlencodedParser,comment.list);
 
+
 /*首页用户留言时候发送的post请求*/
 app.post('/comments', urlencodedParser,comment.add);
 
@@ -49,6 +50,9 @@ app.get('/loadMoreImg', urlencodedParser , comment.loadMoreImg);
 
 /*请求图片总数*/
 app.get('/loadAllImgNum' , urlencodedParser , comment.loadAllImgNum);
+
+/*请求博客地址*/
+app.get('/loadAllBlogs' , urlencodedParser , comment.loadAllBlogs);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server listening on port ' + app.get('port'));
