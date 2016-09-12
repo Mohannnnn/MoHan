@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="../../css/blogs.css">
+    <title>js惰加载图片</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 class="title">js图片惰性加载</h1>
+        <div class="minTip">
+            <span class="wordNum">字数</span>
+            <span class="readNum">阅读量</span>
+            <span class="likeNum">赞</span>
+            <span class="likeNum">作者：MoHan</span>
+        </div>
+        <div class="means">
+            <p>现如今，网站载有的信息量越来越大，其中图片占据着很大一部分，这样一来可以使整个页以面图文结合的形式展现，更加美观。</br>
+                然而问题来了，如果是一个图片列表页，虽然好看，但是相关图片的加载要耗费非常长的时间，等待图片一格一格的加载，实在让人抓狂，如何优化此类页面呢？</br>
+                1.利用ajax技术将此类页面做成瀑布流(其实就是需要哪个图片时，就ajax请求加载哪个)</br>
+                2.图片堕性加载</br>
+                这里我们说明第二种方法。
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="method">
+            <!-- <h4>方法：</h4>
+            <p>图片堕加载</p> -->
+            <h4>原理：</h4>
+            <p>
+                页面加载后只让文档可视区内的图片显示，其它不显示，随着用户对页面的滚动，判断其区域位置，生成img标签，让到可视区的图片加载出来。
+            </p>
+            <h4>所用相关的技术：</h4>
+            <p>
+                给img的父级加属性 (例如data-src)，将图片的地址赋值给他，这样就生成img标签后再把data-src的值赋给img的src（通过dataset.src或者getAttribute('src'),再赋值给img.setAttribute('src')）。
+            </p>
+        </div>
+
+        <div class="code">
+            <h4>代码：</h4>
+
+            <p>.html代码</p>
+				<pre class="precode">
+					<code>
+<span class="code_symbol">&lt;</span><span class="code_tag">ul</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://cover.read.duokan.com/mfsv2/download/fdsc3/p01N203pHTU7/Wr5314kcLAtVCi.jpg!t"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg" </span><span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://cover.read.duokan.com/mfsv2/download/fdsc3/p01a3SXHo2hZ/XYAC5TLk4uYWXn.jpg!t"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg" </span><span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg" </span><span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg" </span><span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span><span class="code_tag">li</span> <span class="code_attribute">data-src=</span><span class="code_value">"http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/i</span> <span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span><span class="code_tag">/li</span><span class="code_symbol">&gt;</span>
+<span class="code_symbol">&lt;</span><span class="code_tag">/ul</span><span class="code_symbol">&gt;</span>
+                    </code>
+				</pre>
+
+            <p>.js代码</p>
+				<pre class="precode">
+					<code>
+         <span class="code_annotation">/* 获取节点 */</span>
+         <span class="code_attribute">var</span> <span class="code_fun">oUl</span> = <span class="code_tag">document</span>.<span class="span code_fun">getElementsByTagName</span>('ul')[0];
+         <span class="code_attribute">var</span> <span class="code_fun">aLi</span> = <oUl class="span code_fun">getElementsByTagName</oUl>('li');
+
+         <span class="code_attribute">var</span> <span class="code_fun">lazyLoadImg</span> = <span class="code_tag">function</span> (<span class="code_attribute">parentElement</span>) {
+         <span class="code_annotation">/* 创建img标签函数 */</span>
+         <span class="code_tag">function</span> <span class="code_fun">createImg</span>(obj){
+                <span class="code_attribute">var</span> src = '';
+                <span class="code_attribute">if</span>(obj.dataset.src){
+                src = obj.dataset.src;
+         } <span class="code_attribute">else</span>{
+               src = obj.getAttribute('data-src');
+         }
+                <span class="code_attribute">if</span>(obj.children.length <= 1){
+                <span class="code_attribute">var</span> img = <span class="code_tag">document</span>.createElement('img');
+                img.src = src;
+                obj.appendChild(img);
+               }
+          }
+
+          <span class="code_annotation">/* 计算节点到文档顶部的距离 */</span>
+          <span class="code_tag">function</span> <span class="code_fun">getTop</span>(obj){
+          <span class="code_attribute">var</span> h = 0;
+          <span class="code_attribute">if</span>(obj){
+               h += obj.offsetTop;
+               }
+              return h;
+          }
+
+          <span class="code_annotation">/* 滚动实时计算所到区域并进行相关计算 */</span>
+          window.onscroll = <span class="code_tag">function</span>(){
+                <span class="code_attribute">var</span> nowPosition = <span class="code_tag">document</span>.documentElement.clientHeight + (<span class="code_tag">document</span>.body.scrollTop || <span class="code_tag">document</span>.documentElement.scrollTop);
+                for(<span class="code_attribute">var</span> i=0;i < <span class="code_attribute">parentElement</span>.length;i++){
+                <span class="code_attribute">if</span>(<span class="code_fun">getTop</span>(<span class="code_attribute">parentElement</span>[i]) < nowPosition){
+                    setTimeout(<span class="code_fun">createImg</span>(<span class="code_attribute">parentElement</span>[i]),500)
+                     }
+                }
+            }
+         }
+
+         <span class="code_fun">lazyLoadImg</span>(aLi);
+                    </code>
+				</pre>
+        </div>
+
+        <div class="explain">
+            点击<a href="../blogsDome/lazyLoadImgDome.html">这里</a>查看dome
+        </div>
+    </section>
+
+    <footer>
+        <div class="like">
+            <span>赞</span>
+            <span></span>
+        </div>
+        <div class="github">
+            <a href="https://github.com/fututer"><img src="../../images/github.svg" alt=""></a>
+            <a href="javascript:void(0)"><img src="../../images/message1.svg" alt=""></a>
+        </div>
+    </footer>
+</div>
+
+<script src="../../assets/js/blogs/blogsCommon.js"></script>
+<script src="../../assets/js/blogs/blogs.js"></script>
+</body>
+</html>

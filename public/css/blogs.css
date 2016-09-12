@@ -1,0 +1,139 @@
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    width: 55%;
+    color: #2f2f2f;
+    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 100px;
+}
+h1,h4 {
+    color: #11CD6E;
+}
+.title {
+    word-break: break-all;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+.minTip {
+    margin: 20px 0;
+}
+.wordNum {
+    position: relative;
+    top: 1px;
+    margin-right: 10px;
+    font-size: 12px;
+    color: #999999;
+}
+.readNum {
+    position: relative;
+    top: 1px;
+    margin-right: 10px;
+    font-size: 12px;
+    color: #999999;
+}
+.likeNum {
+    position: relative;
+    top: 1px;
+    margin-right: 10px;
+    font-size: 12px;
+    color: #999999;
+}
+.means {
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    background-color: whitesmoke;
+    border-left: 4px solid #999999;
+    word-break: break-word;
+    font-size: 15px;
+    font-weight: 100;
+    line-height: 30px;
+}
+.precode {
+    overflow: auto;
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 12px;
+    line-height: 20px;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre;
+    /*background-color: #11CD6E;*/
+    background-color: #000;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,0.15);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+code {
+    color: #00D66A;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+.explain a{
+    text-decoration: none;
+    color: #11CD6E;
+    font-size: 23px;
+
+}
+.explain a:hover {
+    color:#2B9861;
+}
+.like {
+    width: 20%;
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+    border: 1px solid #11CD6E;
+    border-radius: 40px;
+    font-size: 18px;
+    text-align: center;
+    color: #11CD6E;
+    background-image: url('../images/like.svg');
+    background-repeat: no-repeat;
+    background-position: 10% 16px;
+    margin: 5% 0;
+    cursor: pointer;
+}
+.like:hover {
+    border: 1px solid #fff;
+    background-color: #009047;
+}
+.like span:last-child {
+    border-left: 1px solid #11CD6E;
+    margin-left: 5px;
+    padding-left: 7px;
+}
+.github {
+    text-align: center;
+}
+.github a {
+    margin: 0 2%;
+}
+/*蓝色*/
+.code_tag {
+    color: #66d9ef;
+}
+/*褐色*/
+.code_attribute {
+    color:#b58900;
+}
+/*蓝绿色*/
+.code_value {
+    color:#358881;
+}
+/*注释，灰色*/
+.code_annotation {
+    color: #9E987C;
+}
+/*标签符号，白色*/
+.code_symbol {
+    color:#fff;
+}
+/*黄色*/
+.code_fun {
+    color: #a6e22e;
+}

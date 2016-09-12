@@ -32485,7 +32485,7 @@
 
 	            return (
 	                React.createElement("div", {className: "blog_each", key: value.blogId}, 
-	                    React.createElement("a", {href: value.blogUrl}, React.createElement("h2", null, value.blogName)), 
+	                    React.createElement("a", {href: value.blogUrl + "?blogId=" + value.blogId}, React.createElement("h2", null, value.blogName)), 
 	                    React.createElement("span", {className: "blog_time"}, value.blogCreateTime)
 	                )
 	            )
@@ -32540,8 +32540,8 @@
 	                        React.createElement("h2", null, "我的博客")
 	                    ), 
 	                    React.createElement("div", null, 
-	                        React.createElement(MainPage_blogs_every, {blogMessage: this.state.blogMessage}), 
-	                        React.createElement(MainPage_blogs_paging, {allBlogsCount: this.state.allBlogsCount, listenlookPageFun: this.listenlookPageFun})
+	                        React.createElement(MainPage_blogs_every, {blogMessage: this.state.blogMessage})
+
 	                    )
 
 	                )
@@ -32551,6 +32551,7 @@
 	    }
 	});
 
+	//<MainPage_blogs_paging allBlogsCount={this.state.allBlogsCount} listenlookPageFun={this.listenlookPageFun}/>
 	//博客分页
 	var MainPage_blogs_paging = React.createClass({displayName: "MainPage_blogs_paging",
 

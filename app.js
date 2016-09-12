@@ -54,6 +54,13 @@ app.get('/loadAllImgNum' , urlencodedParser , comment.loadAllImgNum);
 /*请求博客地址*/
 app.get('/loadAllBlogs' , urlencodedParser , comment.loadAllBlogs);
 
+/*请求某一具体博客的访问量，数字，赞数*/
+app.get('/loadBlogsDetail' , urlencodedParser , comment.loadBlogsDetail);
+
+/*点赞之后的+1操作*/
+app.get('/addBlogsLikeNum' , urlencodedParser , comment.addBlogsLikeNum);
+
+
 http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server listening on port ' + app.get('port'));
 });

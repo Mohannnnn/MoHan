@@ -16,7 +16,7 @@ var MainPage_blogs_every = React.createClass({
 
             return (
                 <div className="blog_each" key={value.blogId}>
-                    <a href={value.blogUrl}><h2>{value.blogName}</h2></a>
+                    <a href={value.blogUrl + "?blogId=" + value.blogId}><h2>{value.blogName}</h2></a>
                     <span className="blog_time">{value.blogCreateTime}</span>
                 </div>
             )
@@ -72,7 +72,7 @@ var MainPage_blogs = React.createClass({
                     </header>
                     <div>
                         <MainPage_blogs_every blogMessage={this.state.blogMessage} />
-                        <MainPage_blogs_paging allBlogsCount={this.state.allBlogsCount} listenlookPageFun={this.listenlookPageFun}/>
+
                     </div>
 
                 </div>
@@ -82,6 +82,7 @@ var MainPage_blogs = React.createClass({
     }
 });
 
+//<MainPage_blogs_paging allBlogsCount={this.state.allBlogsCount} listenlookPageFun={this.listenlookPageFun}/>
 //博客分页
 var MainPage_blogs_paging = React.createClass({
 

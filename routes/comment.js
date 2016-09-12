@@ -231,10 +231,63 @@ exports.loadAllBlogs = function (req , res) {
 };
 
 
+//加载某一具体博客的阅读量，赞量，字数的get请求
+exports.loadBlogsDetail = function (req , res ) {
+    var database = 'comment';//数据库名
+    var table = 'blogs';//表名
 
+    var connection = mysql.createConnection({
+        "host" : "localhost",
+        "user" : "root",
+        "port" : 3306,
+        "password" : "wuhan"
+    });
 
+    connection.connect();
 
+    connection.query('use '+ database);
 
+    connection.query('UPDATE ' + table + ' set blogReadNum = (blogReadNum + 1) where blogId = ' + req.query.blogId);
+
+    connection.query('SELECT blogWordNum,blogLikeNum,blogReadNum from ' + table + ' where blogId = ' + req.query.blogId , function(err, rows, fields) {
+        if(err) {
+            console.log( err.message);
+            return;
+        }
+        if(rows) {
+            res.json(rows[0]);
+        }
+    });
+};
+
+//点赞+1数据操作
+exports.addBlogsLikeNum = function (req , res) {
+    var database = 'comment';//数据库名
+    var table = 'blogs';//表名
+
+    var connection = mysql.createConnection({
+        "host" : "localhost",
+        "user" : "root",
+        "port" : 3306,
+        "password" : "wuhan"
+    });
+
+    connection.connect();
+
+    connection.query('use '+ database);
+
+    connection.query('UPDATE ' + table + ' set blogLikeNum = (blogLikeNum + 1) where blogId = ' + req.query.blogId);
+
+    connection.query('SELECT blogLikeNum from ' + table + ' where blogId = ' + req.query.blogId , function(err, rows, fields) {
+        if(err) {
+            console.log( err.message);
+            return;
+        }
+        if(rows) {
+            res.json(rows[0]);
+        }
+    });
+};
 
 /*-----------------------------------------------------*/
 

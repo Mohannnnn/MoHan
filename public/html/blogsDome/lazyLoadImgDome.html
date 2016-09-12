@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js惰加载图片dome</title>
+</head>
+<body>
+<ul>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p01N203pHTU7/Wr5314kcLAtVCi.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p01a3SXHo2hZ/XYAC5TLk4uYWXn.jpg!t"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+    <li data-src="http://pic.58pic.com/58pic/17/18/97/01U58PIC4Xr_1024.jpg"><i></i></li>
+    <li data-src="http://cover.read.duokan.com/mfsv2/download/fdsc3/p015trgKM7vw/H0iyDPPneOVrA4.jpg!t"><i></i></li>
+    <li data-src="http://77fkxu.com1.z0.glb.clouddn.com/20160308/1457402219_73571.jpg"><i></i></li>
+    <li data-src="http://imgsrc.baidu.com/baike/pic/item/2f9cbdcc5e0bcf5c00e9283b.jpg"><i></i></li>
+    <li data-src="http://pic1.cxtuku.com/00/16/18/b3809a2ba0f3.jpg"><i></i></li>
+    <li data-src="http://img.bitscn.com/upimg/allimg/c150708/14363B06253120-6060O.jpg"><i></i></li>
+</ul>
+
+<script>
+    var oUl = document.getElementsByTagName('ul')[0];
+    var aLi = oUl.getElementsByTagName('li');
+
+
+    var lazyLoadImg = function (parentElement) {
+
+        //创建img标签元素
+        function createImg(obj) {
+            var src = '';
+
+            if(obj.dataset.src) {
+                src = obj.dataset.src;
+            } else {
+                src = obj.getAttribute('data-src');
+            }
+
+            if(obj.children.length <= 1) {
+                var img = document.createElement('img');
+                img.src = src;
+                obj.appendChild(img);
+            }
+        }
+
+        //计算节点到文档顶部的距离
+        function getTop(obj) {
+            var h = 0;
+
+            if(obj) {
+                h = h + obj.offsetTop;
+            }
+
+            return h;
+        }
+
+        //滚动实时计算的区域并进行计算
+        window.onscroll = function () {
+            var nowPosition = document.documentElement.clientHeight + (document.body.scrollTop || document.documentElement.scrollTop);
+
+            for (var i = 0 ; i < parentElement.length ; i++) {
+
+                if(getTop(parentElement[i]) < nowPosition) {
+
+                    setTimeout(createImg(parentElement[i]) , 500);
+                }
+            }
+        };
+    }
+
+    lazyLoadImg(aLi);
+</script>
+</body>
+</html>
