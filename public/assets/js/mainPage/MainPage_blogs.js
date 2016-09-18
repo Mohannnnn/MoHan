@@ -72,9 +72,7 @@ var MainPage_blogs = React.createClass({
                     </header>
                     <div>
                         <MainPage_blogs_every blogMessage={this.state.blogMessage} />
-
                     </div>
-
                 </div>
 
             </section>

@@ -32541,9 +32541,7 @@
 	                    ), 
 	                    React.createElement("div", null, 
 	                        React.createElement(MainPage_blogs_every, {blogMessage: this.state.blogMessage})
-
 	                    )
-
 	                )
 
 	            )
