@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="../../css/blogs.css">
+    <title>css3 loading</title>
+</head>
+<body>
+<style>
+    .box {
+        width: 100%;
+    }
+
+    .loading1 {
+        width: 30%;
+        height: 250px;
+        border: 1px solid #11CD6E;
+        box-sizing: border-box;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading1 i {
+        width: 35px;
+        height: 35px;
+        position: relative;
+        display: block;
+        border-radius: 50%;
+        background: linear-gradient(transparent 0%, transparent 70%, #333333 70%, #333333 100%);
+        -webkit-animation: loading1 1s linear 0s infinite;
+        -moz-animation: loading1-moz 1s linear 0s infinite;
+    }
+
+    @-webkit-keyframes loading1 {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(180deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    @-moz-keyframes  loading1-moz{
+        0% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(180deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loading2 {
+        width: 30%;
+        height: 250px;
+        border: 1px solid #11CD6E;
+        box-sizing: border-box;
+        margin: 50px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .loading2 i {
+        width: 6px;
+        height: 32px;
+        margin-right: 6px;
+        border-radius: 4px;
+        background-color: #333333;
+    }
+
+    .loading2 i:nth-child(1){
+        -webkit-animation:loading2 1s linear 0s infinite;
+    }
+    .loading2 i:nth-child(2){
+        -webkit-animation:loading2 1s linear 0.2s infinite;
+    }
+    .loading2 i:nth-child(3){
+        -webkit-animation:loading2 1s linear 0.4s infinite;
+    }
+    .loading2 i:nth-child(4){
+        -webkit-animation:loading2 1s linear 0.6s infinite;
+    }
+    .loading2 i:nth-child(5){
+        -webkit-animation:loading2 1s linear 0.8s infinite;
+    }
+
+    @-webkit-keyframes loading2 {
+        0% {
+            transform : scale(1,1);
+        }
+        50% {
+            transform: scale(1,0.5);
+        }
+        100% {
+            transform : scale(1,1);
+        }
+    }
+
+    .loader {
+        width: 30%;
+        height: 250px;
+        margin: 10px auto;
+        border: 1px solid #11CD6E;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading3 {
+        position: relative;
+    }
+
+    .loading3 i {
+        display: block;
+        width: 10px;
+        height: 10px;
+        background-color: #333333;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    .loading3 i:nth-child(1) {
+        top: 25px;
+        left: 0px;
+        -webkit-animation: loading3 1s linear 0.84s infinite;
+    }
+    .loading3 i:nth-child(2) {
+        top: 17px;
+        left: 17px;
+        -webkit-animation: loading3 1s linear 0.72s infinite;
+    }
+    .loading3 i:nth-child(3) {
+        top: 0px;
+        left:25px;
+        -webkit-animation: loading3 1s linear 0.6s infinite;
+    }
+    .loading3 i:nth-child(4) {
+        top:-17px;
+        left: 17px;
+        -webkit-animation: loading3 1s linear 0.48s infinite;
+    }
+    .loading3 i:nth-child(5) {
+        top: -25px;
+        left: 0px;
+        -webkit-animation: loading3 1s linear 0.36s infinite;
+    }
+    .loading3 i:nth-child(6) {
+        top: -17px;
+        left: -17px;
+        -webkit-animation: loading3 1s linear 0.24s infinite;
+    }
+    .loading3 i:nth-child(7) {
+        top: 0px;
+        left: -25px;
+        -webkit-animation: loading3 1s linear 0.12s infinite;
+    }
+    .loading3 i:nth-child(8) {
+        top: 17px;
+        left: -17px;
+        -webkit-animation: loading3 1s linear 0s infinite;
+    }
+    @-webkit-keyframes  loading3{
+        0% {
+            transform: scale(0,0);
+            opacity: 0.3;
+        }
+        100% {
+            transform: scale(1,1);
+            opacity: 1;
+        }
+    }
+</style>
+<div class="container">
+    <header>
+        <h1 class="title">css3 Loading</h1>
+        <div class="minTip">
+            <span class="wordNum">字数</span>
+            <span class="readNum">阅读量</span>
+            <span class="likeNum">赞</span>
+            <span class="likeNum">作者：MoHan</span>
+        </div>
+        <div class="means">
+            <p>无论什么请求，总有那么一段等待请求响应de时间。如果等待loading使用.gif的图片来代替，那么这里就又会多一次http请求。
+                为了提高性能。我们可以使用css3来达到效果。
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="method">
+
+            <h4>原理：</h4>
+            <p>
+                通过2D转变图标的状态，然后对其从0~100%的过渡时间段内施加一段转变效果，然后让图标重复此前的动作，即完成了。
+            </p>
+            <h4>所用相关的技术：</h4>
+            <p>
+                使用到css3的transform(转变),transition(过渡)，animation(动画)。此处我写了3种。
+            </p>
+        </div>
+
+
+        <div class="code">
+            <h3>第一种效果如下：</h3>
+            <div class="box">
+                <div class="loading1">
+                    <i></i>
+                </div>
+            </div>
+
+            <h4>代码：</h4>
+            <p>.html代码</p>
+				<pre class="precode">
+					<code>
+    <span class="code_symbol">&lt;</span>div class="box"<span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span>div class="loading1"<span class="code_symbol">&gt;</span>
+             <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+    <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+                    </code>
+				</pre>
+
+            <p>.css代码</p>
+				<pre class="precode">
+					<code>
+    .box {
+            width: 100%;
+    }
+<span class="code_annotation">/*
+    display,align-items,justify-content 这三个属性是为了将 i 标签中的内容放置在 div 的中部。
+    首先利用 display 属性将div 设置成弹性盒子元素，然后利用 align-items 设置元素在纵轴上居中，justify-content 设置元素在横轴上居中。
+*/</span>
+    .loading1 {
+            width: 30%;
+            height: 250px;
+            border: 1px solid #11CD6E;
+            box-sizing: border-box;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    }
+
+    .loading1 i {
+            width: 35px;
+            height: 35px;
+            position: relative;
+            display: block;
+            border-radius: 50%;
+            background: linear-gradient(transparent 0%, transparent 70%, #333333 70%, #333333 100%);
+            <span class="code_annotation">//设置0~70%为透明，70%~100%为灰色</span>
+            -webkit-animation: loading1 1s linear 0s infinite;
+            -moz-animation: loading1-moz 1s linear 0s infinite;
+    }
+
+    @-webkit-keyframes loading1 {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+    }
+
+    @-moz-keyframes  loading1-moz{
+            0% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+    }
+                    </code>
+				</pre>
+
+            <h3>第二种效果如下：</h3>
+            <div class="box">
+                <div class="loading2">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+            </div>
+
+            <h4>代码：</h4>
+            <p>.html代码</p>
+				<pre class="precode">
+					<code>
+    <span class="code_symbol">&lt;</span>div class="box"<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>div class="loading2"<span class="code_symbol">&gt;</span>
+                <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+    <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+                    </code>
+				</pre>
+
+            <p>.css代码</p>
+				<pre class="precode">
+					<code>
+    .box {
+            width: 100%;
+    }
+
+<span class="code_annotation">/*
+    display,align-items,justify-content 这三个属性是为了将 i 标签中的内容放置在 div 的中部。
+    首先利用 display 属性将div 设置成弹性盒子元素，然后利用 align-items 设置元素在纵轴上居中，justify-content 设置元素在横轴上居中。
+*/</span>
+    .loading2 {
+            width: 30%;
+            height: 250px;
+            border: 1px solid #11CD6E;
+            box-sizing: border-box;
+            margin: 50px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    }
+
+    .loading2 i {
+            width: 6px;
+            height: 32px;
+            margin-right: 6px;
+            border-radius: 4px;
+            background-color: #333333;
+    }
+
+    .loading2 i:nth-child(1){
+            -webkit-animation:loading2 1s linear 0s infinite;
+    }
+    .loading2 i:nth-child(2){
+            -webkit-animation:loading2 1s linear 0.2s infinite;
+    }
+    .loading2 i:nth-child(3){
+            -webkit-animation:loading2 1s linear 0.4s infinite;
+    }
+    .loading2 i:nth-child(4){
+            -webkit-animation:loading2 1s linear 0.6s infinite;
+    }
+    .loading2 i:nth-child(5){
+            -webkit-animation:loading2 1s linear 0.8s infinite;
+    }
+
+    @-webkit-keyframes loading2 {
+            0% {
+                transform : scale(1,1);
+            }
+            50% {
+                transform: scale(1,0.5);
+            }
+            100% {
+                transform : scale(1,1);
+            }
+    }
+                    </code>
+				</pre>
+
+            <h3>第三种效果如下：</h3>
+            <div class="box">
+                <div class="loader">
+                    <div class="loading3">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <h4>代码：</h4>
+            <p>.html代码</p>
+				<pre class="precode">
+					<code>
+    <span class="code_symbol">&lt;</span>div class="box"<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>div class="loader"<span class="code_symbol">&gt;</span>
+                 <span class="code_symbol">&lt;</span>div class="loading3"<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                        <span class="code_symbol">&lt;</span>i<span class="code_symbol">&gt;</span><span class="code_symbol">&lt;</span>/i<span class="code_symbol">&gt;</span>
+                 <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+    <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+                    </code>
+				</pre>
+
+            <p>.css代码</p>
+				<pre class="precode">
+					<code>
+ <span class="code_annotation">/*
+    display,align-items,justify-content 这三个属性是为了将 i 标签中的内容放置在 div 的中部。
+    首先利用 display 属性将div 设置成弹性盒子元素，然后利用 align-items 设置元素在纵轴上居中，justify-content 设置元素在横轴上居中。
+*/</span>
+    .loader {
+            width: 30%;
+            height: 250px;
+            margin: 10px auto;
+            border: 1px solid #11CD6E;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    }
+
+<span class="code_annotation">/*
+    父元素在8个圆点中间，设置为相对定位。
+*/</span>
+    .loading3 {
+            position: relative;
+    }
+
+    .loading3 i {
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: #333333;
+            border-radius: 50%;
+            position: absolute;
+    }
+
+    .loading3 i:nth-child(1) {
+            top: 25px;
+            left: 0px;
+            -webkit-animation: loading3 1s linear 0.84s infinite;
+    }
+    .loading3 i:nth-child(2) {
+            top: 17px;
+            left: 17px;
+            -webkit-animation: loading3 1s linear 0.72s infinite;
+    }
+    .loading3 i:nth-child(3) {
+            top: 0px;
+            left:25px;
+            -webkit-animation: loading3 1s linear 0.6s infinite;
+    }
+    .loading3 i:nth-child(4) {
+            top:-17px;
+            left: 17px;
+            -webkit-animation: loading3 1s linear 0.48s infinite;
+    }
+    .loading3 i:nth-child(5) {
+            top: -25px;
+            left: 0px;
+            -webkit-animation: loading3 1s linear 0.36s infinite;
+    }
+    .loading3 i:nth-child(6) {
+            top: -17px;
+            left: -17px;
+            -webkit-animation: loading3 1s linear 0.24s infinite;
+    }
+    .loading3 i:nth-child(7) {
+            top: 0px;
+            left: -25px;
+            -webkit-animation: loading3 1s linear 0.12s infinite;
+    }
+    .loading3 i:nth-child(8) {
+            top: 17px;
+            left: -17px;
+            -webkit-animation: loading3 1s linear 0s infinite;
+    }
+    @-webkit-keyframes  loading3{
+            0% {
+                transform: scale(0.75,0.75);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1,1);
+                opacity: 1;
+            }
+    }
+                    </code>
+				</pre>
+        </div>
+
+        <div class="explain">
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="like">
+            <span>赞</span>
+            <span></span>
+        </div>
+        <div class="github">
+            <a href="https://github.com/fututer"><img src="../../images/github.svg" alt=""></a>
+            <a href="javascript:void(0)"><img src="../../images/message1.svg" alt=""></a>
+        </div>
+    </footer>
+</div>
+
+<script src="../../assets/js/blogs/blogsCommon.js"></script>
+<script src="../../assets/js/blogs/blogs.js"></script>
+</body>
+</html>
