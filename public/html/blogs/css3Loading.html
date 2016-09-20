@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="../../css/blogs.css">
-    <title>css3 loading</title>
+    <title>自制css3 Loading</title>
 </head>
 <body>
 <style>
@@ -184,10 +184,73 @@
             opacity: 1;
         }
     }
+
+    .loading4 {
+        width: 30%;
+        height: 250px;
+        border: 1px solid #11CD6E;
+        box-sizing: border-box;
+        margin: 50px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loader4 {
+        width:100px;
+        height: 100px;
+        border-radius: 50%;
+        border:1px solid #BBBABA;
+        position: relative;
+        border-width: 4px;
+    }
+
+    .loader4:before {
+        width: 35px;
+        height: 4px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        content: "";
+        border-radius: 4px;
+        background-color: #BBBABA;
+        transform-origin: 2px 2px 0;
+        -webkit-animation: before 10s linear 0s infinite;
+    }
+    .loader4:after {
+        width: 45px;
+        height: 5px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        content: "";
+        background-color: #BBBABA;
+        transform-origin: 2px 2px 0;
+        -webkit-animation: after 2s linear 0s infinite;
+        border-radius: 4px;
+    }
+
+    @-webkit-keyframes before {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes after {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 <div class="container">
     <header>
-        <h1 class="title">css3 Loading</h1>
+        <h1 class="title">自制CSS3 Loading</h1>
         <div class="minTip">
             <span class="wordNum">字数</span>
             <span class="readNum">阅读量</span>
@@ -210,7 +273,7 @@
             </p>
             <h4>所用相关的技术：</h4>
             <p>
-                使用到css3的transform(转变),transition(过渡)，animation(动画)。此处我写了3种。
+                使用到css3的transform(转变),transition(过渡)，animation(动画)。此处我写了4种。
             </p>
         </div>
 
@@ -510,6 +573,106 @@
                     </code>
 				</pre>
         </div>
+
+        <h3>第四种效果如下：</h3>
+        <div class="box">
+            <div class="loading4">
+                <div class="loader4">
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <h4>代码：</h4>
+        <p>.html代码</p>
+        <pre class="precode">
+            <code>
+    <span class="code_symbol">&lt;</span>div class="box"<span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span>div class="loading4"<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>div class="loader4"<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+    <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+            </code>
+        </pre>
+
+        <p>.css代码</p>
+        <pre class="precode">
+            <code>
+    .box {
+        width: 100%;
+    }
+<span class="code_annotation">/*
+    display,align-items,justify-content 这三个属性是为了将 i 标签中的内容放置在 div 的中部。
+    首先利用 display 属性将div 设置成弹性盒子元素，然后利用 align-items 设置元素在纵轴上居中，justify-content 设置元素在横轴上居中。
+*/</span>
+    .loading4 {
+        width: 30%;
+        height: 250px;
+        border: 1px solid #11CD6E;
+        box-sizing: border-box;
+        margin: 50px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loader4 {
+        width:100px;
+        height: 100px;
+        border-radius: 50%;
+        border:1px solid #BBBABA;
+        position: relative;
+        border-width: 4px;
+    }
+
+    .loader4:before {
+        width: 35px;
+        height: 4px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        content: "";
+        border-radius: 4px;
+        background-color: #BBBABA;
+        transform-origin: 2px 2px 0;
+        -webkit-animation: before 10s linear 0s infinite;
+    }
+    .loader4:after {
+        width: 45px;
+        height: 5px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        content: "";
+        background-color: #BBBABA;
+        transform-origin: 2px 2px 0;
+        -webkit-animation: after 2s linear 0s infinite;
+        border-radius: 4px;
+    }
+
+    @-webkit-keyframes before {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @-webkit-keyframes after {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+            </code>
+        </pre>
+
 
         <div class="explain">
 
