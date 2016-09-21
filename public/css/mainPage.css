@@ -291,6 +291,7 @@
 /*个人介绍部分*/
 section {
     text-align: center;
+    overflow: hidden;
 }
 .eachModule {
     padding:5%;
@@ -301,6 +302,30 @@ section {
     background-size: cover;
     color: #fff;
     transition: all 0.5s;
+    -webkit-animation: intro 8s linear 0s infinite;
+}
+@-webkit-keyframes intro {
+    0% {
+        background-image:url('../images/apple.jpg');
+        transform: scale(1,1);
+        opacity: 1;
+    }
+    59% {
+        background-image:url('../images/apple.jpg');
+        transform: scale(1.2,1.2);
+        opacity: 0.9;
+    }
+    60% {
+        background-image:url('../images/apple2.jpg');
+        transform: scale(1.2,1.2);
+        opacity: 0.9;
+    }
+
+    100% {
+        background-image:url('../images/apple2.jpg');
+        transform: scale(1,1);
+        opacity: 1;
+    }
 }
 #intro h1 {
     font-size: 2rem;
