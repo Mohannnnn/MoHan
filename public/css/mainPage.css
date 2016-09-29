@@ -255,6 +255,7 @@
     height: 40px;
     width: 60px;
     cursor: pointer;
+    z-index: 100;
 }
 /*右边公共部分*/
 .intro_button {
