@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="../../css/blogs.css">
+    <title>js惰加载图片</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 class="title">js 闭包</h1>
+        <div class="minTip">
+            <span class="wordNum">字数</span>
+            <span class="readNum">阅读量</span>
+            <span class="likeNum">赞</span>
+            <span class="likeNum">作者：MoHan</span>
+        </div>
+        <div class="means">
+            <p>
+                对于js的闭包，想必大家也都心知肚明了。一般函数执行完毕后，函数内部的活动对像都会被销毁，内存中仅仅保存的是全局作用域，但闭包却是在活动结束后，对象仍会活跃在内存中，它不会被销毁，通过这些对象，我们就又可以访问或改变局部变量。下面我会简单介绍闭包的特性和作用，以及会通过一个实例来具体讲解闭包(这个实例是我在网上找的一个经典例子)。
+            </p>
+            <h4>js闭包三大特性</h4>
+            <p>
+                1.函数嵌套函数<br>
+                2.函内部可以引用外部的参数和变量<br>
+                3.变量不会被垃圾回收机制回收<br>
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="method">
+            <h2>作用一：</h2>
+            <p>
+                实现匿名执行函数，这种方法不会污染全局变量
+            </p>
+        </div>
+
+        <div class="code">
+            <h4>代码：</h4>
+            <p>.js代码</p>
+            <pre class="precode">
+                <code>
+    var fun = (function () {
+        var a = 1;
+        return function () {
+            a ++;
+            console.log(a);
+        }
+    })();
+    fun();//输出2
+    fun();//输出3
+                </code>
+            </pre>
+            <h5>说明：</h5>
+            <p>这里模块化了代码，我们创建了一个匿名立即执行函数，并将它得返回值赋值给了fun,函数返回的函数输出a,但是这里闭包a，所以内存无法在调用fun函数之后，释放掉变量a，所以a的值会在下一次调用时增加。</p>
+        </div>
+
+        <div class="code">
+            <h2>作用二：</h2>
+            <p>
+                实现封装，让函数存在私有变量和方法
+            </p>
+            <h4>代码：</h4>
+            <p>.js代码</p>
+            <pre class="precode">
+                <code>
+    var person = (function () {
+        var name = 'wuhan';
+
+        function getName () {
+            return name;
+        }
+
+        function setNewName (newName) {
+            name = newName;
+        }
+
+        return {
+            getName : getName,
+            setNewName : setNewName
+        }
+
+    })();
+
+    console.log(person.name);//undefined
+    console.log(person.getName());//wuhan
+    person.setNewName('wuhan123');
+    console.log(person.getName());//wuhan123
+                </code>
+            </pre>
+            <h5>说明：</h5>
+            <p>这里我们在person匿名函数内部创建了一个私有属性，这个属性只能通过内部的函数getName()和setNewName()来访问或者改变它的值,因此我们将它的内部函数返回出去。在外部我们就能访问或改变它的属性值了。</p>
+        </div>
+
+
+
+        <div class="code">
+            <h2>实例：</h2>
+            <p>这是一个经典的例子，如果能够明白，那么想必对闭包理解应该了熟于心了。</p>
+            <h4>代码：</h4>
+
+            <p>.js代码</p>
+				<pre class="precode">
+					<code>
+    function fun(n,o) {
+        console.log(o);
+        return {
+            fun:function(m){
+                return fun(m,n);
+            }
+        };
+    }
+    var a = fun(0);  a.fun(1);  a.fun(2);  a.fun(3);//?,?,?,?
+    var b = fun(0).fun(1).fun(2).fun(3);//?,?,?,?
+    var c = fun(0).fun(1);  c.fun(2);  c.fun(3);//?,?,?,?
+    //问:三行a,b,c的输出分别是什么？
+    //可以先在纸上写出答案然后对照。
+                    </code>
+				</pre>
+            <h4>答案：</h4>
+            <p>
+                第一行输出：undefined  0  0  0<br>
+                第二行输出：undefined  0  1  2<br>
+                第三行输出：undefined  0  1  1<br>
+            </p>
+            <h4>解释：</h4>
+            <p>
+                第一行：<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;1：先调用第一个fun函数，因为函数只有一个参数，所以参数n=0,o=undefiend,所以会先console出一个undefined,然后将
+                return的函数赋值给a.<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;2：然后a.fun(1)会执行返回的对象中的fun(m)，此时m=1,n=0,所以又会return出第一层function(1,0)，然后console出0。a.fun(2)、a.fun(3)都是和a.fun(1)一个道理的。
+
+            </p>
+            <p>
+                第二行：<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;1：第一个输出undefined(这不用解释吧)。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;2：会先输出0，当执行.fun(1)的时候，其实是执行的是里层的fun函数，然后返回外层的fun函数，此时外层参数n=1,o=0，所以console出0。
+                当执行.fun(2)的时候，同样的道理执行的是里面的fun函数，然后返回外层的fun函数，此时里层参数m=2,n=1,相应的外层参数n=2,o=1,所以console出1。最后同样，console出2。
+
+            </p>
+            <p>
+                第三行：<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;1：第一个输出undefined(这不用解释吧)。<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;2：会先输出0，fun(0).fun(1)的其实是返回的一个新的外层带参数fun(1，0)的函数，这里会将此返回值赋值给c,然后c.fun(2)执行里面的fun函数，此时m=2,n=1,外层函数的o就等于1，所以会console出1。c.fun(3)道理和c.fun(2)一样只是m变了，并不影响外层第二个参数o，o始终为1。
+            </p>
+        </div>
+
+        <!--<div class="explain">-->
+            <!--点击<a href="../blogsDome/lazyLoadImgDome.html">这里</a>查看dome-->
+        <!--</div>-->
+    </section>
+
+    <footer>
+        <div class="like">
+            <span>赞</span>
+            <span></span>
+        </div>
+        <div class="github">
+            <a href="https://github.com/fututer"><img src="../../images/github.svg" alt=""></a>
+            <a href="javascript:void(0)"><img src="../../images/message1.svg" alt=""></a>
+        </div>
+    </footer>
+</div>
+
+<script src="../../assets/js/blogs/blogsCommon.js"></script>
+<script src="../../assets/js/blogs/blogs.js"></script>
+</body>
+</html>
