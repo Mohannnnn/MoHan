@@ -32485,7 +32485,7 @@
 
 	            return (
 	                React.createElement("div", {className: "blog_each", key: value.blogId}, 
-	                    React.createElement("a", {href: value.blogUrl + "?blogId=" + value.blogId}, React.createElement("h2", null, value.blogName)), 
+	                    React.createElement("a", {href: value.blogUrl + "?blogId=" + value.blogId, target: "_blank"}, React.createElement("h2", null, value.blogName)), 
 	                    React.createElement("span", {className: "blog_time"}, value.blogCreateTime)
 	                )
 	            )
