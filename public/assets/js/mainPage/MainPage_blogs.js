@@ -16,7 +16,7 @@ var MainPage_blogs_every = React.createClass({
 
             return (
                 <div className="blog_each" key={value.blogId}>
-                    <a href={value.blogUrl + "?blogId=" + value.blogId} target="_blank"><h2>{value.blogName}</h2></a>
+                    <a href={value.blogUrl + "?blogId=" + value.blogId}  target="_blank"><h2>{value.blogName}</h2></a>
                     <span className="blog_time">{value.blogCreateTime}</span>
                 </div>
             )
