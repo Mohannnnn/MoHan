@@ -32365,10 +32365,13 @@
 	            len = parseInt(this.props.allImgNum/this.props.length);
 
 
-	        if(len != 0) {
+	        if(this.props.allImgNum%this.props.length != 0) {
 	            this.state.allPages = len + 1;
+	        }else {
+	            this.state.allPages = len;
 	        }
-
+	        //console.log(len);
+	        //console.log(this.state.allPages);
 	        for(var i = 0  ; i < this.state.allPages ; i++) {
 	            if(i == 0) {
 	                string +=  '<li class="paging_each " data-num="' + (i+1) +  '">'+ '<a href="javascript:;">' +(i+1)+'</a>' +'</li>'
@@ -32409,21 +32412,15 @@
 
 
 	        paging_left.onclick = function (e) {
-
 	            if(this.state.clickNumPage != 1) {
-
-	                this.setState({clickNumPage : this.state.clickNumPage-1});
-
+	                this.setState({clickNumPage : parseInt(this.state.clickNumPage)-1});
 	                this.ajaxFun({length : this.state.length , page : this.state.clickNumPage});
 	            }
 
 	        }.bind(this);
 	        paging_right.onclick = function (e) {
-
 	            if(this.state.clickNumPage != this.state.allPages) {
-
-	                this.setState({clickNumPage : this.state.clickNumPage+1});
-
+	                this.setState({clickNumPage : parseInt(this.state.clickNumPage) + 1});
 	                this.ajaxFun({length : this.state.length , page : this.state.clickNumPage});
 	            }
 
