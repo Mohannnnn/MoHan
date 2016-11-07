@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="../../css/blogs.css">
+    <title>jsPrototype</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 class="title">js 原型及原型链</h1>
+        <div class="minTip">
+            <span class="wordNum">字数</span>
+            <span class="readNum">阅读量</span>
+            <span class="likeNum">赞</span>
+            <span class="likeNum">作者：MoHan</span>
+        </div>
+        <div class="means">
+            <p>
+                在ES6之前，javascript是没有像java中class类这样的思想的。但是却有一种叫做原型的思想，在原型对象中我们可以将公有方法放在其中，
+                多个子对象可以共享这里面的方法，且不会互相冲突。与其说像java的继承，还不如说是借鉴了java语言的思想。因为js原型对象都是由对象指针
+                通过原型链指向原型对象的属性，也就是改变父对象的公有属性，子对象继承后也会发生改变(由指针指向)。
+            </p>
+            <h4>js原型总结</h4>
+            <p>
+                1.所有的对象都有__proto__属性，该属性指向该对象的原型<br>
+                2.所有的函数对象都有prototype属性，该属性的值会被赋值给由该函数创建的子对象(例如由它new一个出来的实例)的__proto__属性<br>
+                3.所有的函数对象的__proto__属性指向的是Function.prototype(function () {})<br>
+                4.所有的原型对象都有constructor属性，该属性指向该原型对象所对应的构造函数<br>
+                5.函数对象和原型对象通过prototype和constructor相关联<br>
+                6.函数的原型对象是指向的是Object,可以说一切的原型都是来自于Object,而Object的原型对象是null,所以说原型链最终的终点是null<br><br>
+
+                下面我会通过一个例子来说明原型及原型对象
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="method">
+            <h2>例如：</h2>
+            <p>
+                我们定义一个SuperType(超级函数)，和一个（一般函数），在将SuperType函数的属性和原型中的方法都继承过来。
+            </p>
+        </div>
+
+        <div class="code">
+            <h4>代码：</h4>
+            <p>.js代码</p>
+            <pre class="precode">
+                <code>
+    function SuperType(name) {
+        this.name = name;
+        this.colors = ['red' , 'blue' , 'green'];
+    }
+
+    SuperType.prototype.sayName = function () {
+        console.log(this.name);
+    }
+
+    function SubType (name , age) {
+        //继承SuperType的构造函数的属性，原型对象中的方法也是继承了
+        SuperType.call(this , name);//第二次调用SuperType
+        this.age = age;
+    }
+
+    SubType.prototype = new SuperType();//第一次调用SuperType
+    SubType.prototype.constructor =  SubType;
+    SubType.prototype.sayName = function () {
+        console.log(this.name);
+    };
+
+    var newType = new SubType('wu',20);
+
+    console.log(SuperType.prototype);//输出SuperType{...},原型对象
+    console.log(SuperType.__proto__);//输出function(){}
+    console.log(SuperType.__proto__.__proto__);//输出Object(){}
+    console.log(SuperType.__proto__.__proto__.__proto__);//输出null
+    console.log(SuperType.prototype.constructor);//输出function SuperType () {...}
+    console.log(newType.constructor);//输出function SubType () {...}
+    console.log(newType.prototype);//输出undefined
+    console.log(newType.__proto__);//输出subType.prototype,即subType的原型对象
+    console.log(newType.__proto__.constructor);输出function subType () {...}构造函数
+    console.log(newType.__proto__.__proto__);//输出SuperType.prototype,即superType的原型对象
+    console.log(newType.__proto__.__proto__.__proto__);输出Object(){}
+
+
+                </code>
+            </pre>
+            <h5>说明：</h5>
+            <p>
+                1.输出SuperType{...}。因为输出的是SuperType的原型对像<br><br>
+                2.输出function () {}。因为函数的__proto__属性是指向的是Function的原型对象，即Function.prototype<br><br>
+                3.输出Object(){}。因为Function.prototype的原型是Object.<br><br>
+                4.输出null。因为Object的原型是null<br><br>
+                5.输出function SuperType () {...}。因为SuperType的原型对象的constructor是指向的该函数的构造函数<br><br>
+                6.输出function SubType () {...}。因为newType是SubType的实例，所以它的constructor自然而然指向的是SubType的构造函数<br><br>
+                7.输出undefined。实例是没有原型对象的。<br><br>
+                8.输出subType.prototype,即subType的原型对象。因为实例的__proto__属性是指向的是父函数的原型对象<br><br>
+                9.输出function subType () {...}构造函数。因为原型对象的constructor是指向的是构造函数<br><br>
+                10.输出superType.prototype,即superType的原型对象。newType.__proto__是指向subType.prototype,而subType的原型对象是SuperType的一个实例,subType.prototype.__proto__ === SuperType.prototype,所以newType.__proto__.__proto__ === SuperType.prototype<br><br>
+                11.输出Object(){}。因为SuperType的原型对象的原型是Object(){}
+            </p>
+        </div>
+
+        <div class="code">
+            <h2>附：对new操作符的认识</h2>
+            <div class="means">
+                <p>
+                    new 的过程分为三步
+                </p>
+                <p>
+                    第一步：初始化一个空对象<br>
+                    第二步：让空对象的__proto__等于原函数的prototype<br>
+                    第三步：调用构造函数call/apply初始化空对象<br><br>
+
+                    var m = new SuperType('wu');
+                </p>
+            </div>
+            <h4>代码：</h4>
+            <p>.js代码</p>
+            <pre class="precode">
+                <code>
+                    1.var m = {}
+                    2.m.__proto__ = SuperType.protoType
+                    3.SuperType.call(this,'wu')
+                </code>
+            </pre>
+            <h5>说明：</h5>
+            <p>
+                m的原型对象设置为SuperType的原型对象后，m也就能够调用SuperType的原型里面的方法了。
+            </p>
+        </div>
+
+
+        <!--<div class="explain">-->
+        <!--点击<a href="../blogsDome/lazyLoadImgDome.html">这里</a>查看dome-->
+        <!--</div>-->
+    </section>
+
+    <footer>
+        <div class="like">
+            <span>赞</span>
+            <span></span>
+        </div>
+        <div class="github">
+            <a href="https://github.com/fututer"><img src="../../images/github.svg" alt=""></a>
+            <a href="javascript:void(0)"><img src="../../images/message1.svg" alt=""></a>
+        </div>
+    </footer>
+</div>
+
+<script src="../../assets/js/blogs/blogsCommon.js"></script>
+<script src="../../assets/js/blogs/blogs.js"></script>
+</body>
+</html>
