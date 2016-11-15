@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="../../css/blogs.css">
+    <title>html+css 布局</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1 class="title">html+css 布局</h1>
+        <div class="minTip">
+            <span class="wordNum">字数</span>
+            <span class="readNum">阅读量</span>
+            <span class="likeNum">赞</span>
+            <span class="likeNum">作者：MoHan</span>
+        </div>
+        <div class="means">
+            <p>
+                这几天突然看到布局方面的知识，突然发现布局也有很多的知识点。而且对于弹性布局（flex布局）这方面也不是特别了解，所以想写一片关于布局的总结。<br>
+
+                这里分为pc和mobile这两个方面。
+            </p>
+
+        </div>
+    </header>
+
+    <section>
+        <div class="method">
+            <h2>一、mobile端的布局</h2>
+            <p>
+                1.【rem布局】：rem是指html元素上的字体大小对应的像素数值，使用rem为长度单位。理想情况下如果将所有的长度单位都用rem标示，
+                那么我只需要更改html上的font-size即可同步按比例更改所有长度单位（包括元素宽高、边距、字体大小等）。
+                这在手机屏幕大小不定时就特别有用，只需要计算一下手机屏幕宽度，设置合适的html上的font-size，就能自适应。
+            </p>
+            <p>
+                2.【弹性盒模型布局】：弹性盒子中的子元素可以在各个方向上进行布局，并且能以弹性尺寸来适应显示空间。
+                由于元素的显示顺序可以与它们在源代码中的顺序无关，定位子元素将变得更容易，并且能够用更简单清晰的代码来完成复杂的布局。
+            </p>
+            <p>
+                3.【百分比布局】：百分比布局，简单粗暴：横向充满则100%；两栏则各50%；三栏则各33.3%，不过这种方式很快被弹性盒模型布局取代。
+            </p>
+            <p>
+                但事无绝对，布局时我们通常根据需求来选择结合使用，比如某些地方我们可能需要设置绝对的px像素(border,margin)等。
+            </p>
+            <h2>二、pc端的布局</h2>
+            <p>
+                1.【固定宽度布局】：例如960px、1280px。通常是先设定总宽度，然后设置子标签的宽度。
+            </p>
+            <p>
+                2.【流式布局】：通常是用百分比来实现。
+            </p>
+                3.【一栏、两栏、三栏布局】：内部通常都用浮动,定位来实现。
+        </div>
+
+        <div class="code">
+            <h4>代码：</h4>
+            <p>.hrml代码</p>
+            <pre class="precode">
+                <code>
+    <span class="code_symbol">&lt;</span>header<span class="code_symbol">&gt;</span>header<span class="code_symbol">&lt;</span>/header<span class="code_symbol">&gt;</span>
+
+        <span class="code_symbol">&lt;</span>div id='main'<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>article<span class="code_symbol">&gt;</span>article<span class="code_symbol">&lt;</span>/article<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>nav<span class="code_symbol">&gt;</span>nav<span class="code_symbol">&lt;</span>/nav<span class="code_symbol">&gt;</span>
+            <span class="code_symbol">&lt;</span>aside<span class="code_symbol">&gt;</span>aside<span class="code_symbol">&lt;</span>/aside<span class="code_symbol">&gt;</span>
+        <span class="code_symbol">&lt;</span>/div<span class="code_symbol">&gt;</span>
+
+    <span class="code_symbol">&lt;</span>footer<span class="code_symbol">&gt;</span>footer<span class="code_symbol">&lt;</span>/footer<span class="code_symbol">&gt;</span>
+                </code>
+            </pre>
+            <p>.css代码</p>
+            <pre class="precode">
+                <code>
+    body {
+        font: 24px Helvetica;
+        background: #999999;
+    }
+
+    #main {
+        min-height: 800px;
+        margin: 0px;
+        padding: 0px;
+        display: -webkit-flex;
+        display:         flex;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+    }
+
+    #main > article {
+        margin: 4px;
+        padding: 5px;
+        border: 1px solid #cccc33;
+        border-radius: 7pt;
+        background: #dddd88;
+        -webkit-flex: 3 1 60%;
+        flex: 3 1 60%;
+        -webkit-order: 2;
+        order: 2;
+    }
+
+    #main > nav {
+        margin: 4px;
+        padding: 5px;
+        border: 1px solid #8888bb;
+        border-radius: 7pt;
+        background: #ccccff;
+        -webkit-flex: 1 6 20%;
+        flex: 1 6 20%;
+        -webkit-order: 1;
+        order: 1;
+    }
+
+    #main > aside {
+        margin: 4px;
+        padding: 5px;
+        border: 1px solid #8888bb;
+        border-radius: 7pt;
+        background: #ccccff;
+        -webkit-flex: 1 6 20%;
+        flex: 1 6 20%;
+        -webkit-order: 3;
+        order: 3;
+    }
+
+    header, footer {
+        display: block;
+        margin: 4px;
+        padding: 5px;
+        min-height: 100px;
+        border: 1px solid #eebb55;
+        border-radius: 7pt;
+        background: #ffeebb;
+    }
+
+        /* 窄到已不足以支持三栏 */
+    @media all and (max-width: 640px) {
+
+        #main, #page {
+            -webkit-flex-flow: column;
+            flex-direction: column;
+        }
+
+        #main > article, #main > nav, #main > aside {
+            /* 恢复到文档内的自然顺序 */
+            -webkit-order: 0;
+            order: 0;
+        }
+
+        #main > nav, #main > aside, header, footer {
+            min-height: 50px;
+            max-height: 50px;
+        }
+    }
+
+                </code>
+            </pre>
+            <h5>说明：</h5>
+            <p>
+                这里主要说明下弹性(flex)布局：<br><br>
+                1.flex-direction :row-reverse ;<br>
+                /*在[伸缩容器]上定义用来定义主轴方向。*/<br>
+                /*flex-direction：row(默认从左到右) row-reverse(从右到左) column(从上到下) column-reverse(从下到上)*/<br><br>
+
+                2.flex-wrap : wrap ;<br>
+                /* 在伸缩容器上用来定义容器内伸缩元素是单行还是多行显示*/<br>
+                /*flex-wrap : nowrap(默认值，伸缩容器为单行显示，当容器太小时，内部元素会跑出) |<br>
+                wrap(内部元素会多行显示，伸缩容器一行内放置不下的元素会被放置到下一行（与排版方向有关）)<br>
+                wrap-reverse(内部元素会多行显示，伸缩容器一行内放置不下的元素会被往上位置放置);*/<br><br>
+
+                /* flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。*/<br><br>
+
+                3.justify-content :space-around;//默认横轴<br>
+                /*为可伸缩模型的重头戏，也是真正优雅实现各种居中的css3属性。*/<br>
+                /*	flex-start：伸缩元素向起始位置靠齐<br>
+                flex-end：伸缩元素向结束位置靠齐<br>
+                center：伸缩元素居中<br>
+                space-between：均匀分布，第一个向起始位置靠齐，最后一个向结束位置靠齐<br>
+                space-around：伸缩元素平均分布在行里，首尾保留一半空间*/
+                <br><br>
+                4.align-items:flex-end;//默认竖轴<br>
+                /* 用来定义伸缩容器内部的伸缩项目在侧轴上的对齐方式*/<br>
+                /* flex-start：伸缩元素向侧轴起始位子靠拢<br>
+                flex-end：伸缩元素向侧轴结束位子靠拢<br>
+                center: 伸缩元素居中对齐<br>
+                baseline ：侧轴方向根据基线对齐*/<br><br>
+
+                5.align-self: flex-end;//设置特殊的块<br><br>
+
+                6.order:将元素与序号关联起来，以此决定哪些元素先出现。
+            </p>
+        </div>
+
+        <div class="explain">
+        点击<a href="../blogsDome/cssLayoutDome.html">这里</a>查看dome
+        </div>
+    </section>
+
+    <footer>
+        <div class="like">
+            <span>赞</span>
+            <span></span>
+        </div>
+        <div class="github">
+            <a href="https://github.com/fututer"><img src="../../images/github.svg" alt=""></a>
+            <a href="javascript:void(0)"><img src="../../images/message1.svg" alt=""></a>
+        </div>
+    </footer>
+</div>
+
+<script src="../../assets/js/blogs/blogsCommon.js"></script>
+<script src="../../assets/js/blogs/blogs.js"></script>
+</body>
+</html>
